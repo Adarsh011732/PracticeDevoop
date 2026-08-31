@@ -1,0 +1,32 @@
+name: Expressions Demo
+
+on:
+  workflow_dispatch:
+    inputs:
+      debug:
+        type: boolean
+        description: 'Enable debug mode'
+        default: true
+  push:
+    branches: [ "main" ]
+
+jobs:
+  check-expressions:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Print Branch and Expression Details
+        run: |
+          echo "Branch: ${{ github.ref_name }}"
+          echo "Event: ${{ github.event_name }}"
+          echo "Actor: ${{ github.actor }}"
+          echo "Is Main: ${{ github.ref_name == 'main' }}"
+
+      - name: '[Debug] Print when Triggered from main'
+        if: ${{ inputs.debug && github.ref_name == 'main' }}
+        run: echo "This workflow was triggered from the main branch"
+
+      - name: Greetings
+        run: echo "Hello, ${{ github.actor }}!"

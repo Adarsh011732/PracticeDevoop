@@ -1,0 +1,48 @@
+name: System Report
+on: workflow_dispatch 
+
+jobs:
+    System_info:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Echo System Info
+              run: echo "System Info"
+            - name: Os name and kernel Version
+              run: |
+                echo "OS name: ${{ runner.os }}" 
+                echo "kernel Version: $( uname -r )"
+            - name: Current time and date
+              run: |
+                  echo "Current time and date: $( date+"%Y-%m-%d") $(date+"%H:%M:%S")"   
+            - name: install Tree
+              run: |
+                  sudo apt-get install -y tree
+                  tree -L 2
+
+    tool-check:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Install jq
+          run: sudo apt-get install -y jq
+        - name: Create file
+          run: |
+           echo '{
+            "name":"Adarsh Singh",
+            "course":"CSE",
+            "profession":"Student"}' >report.json 
+        - name: read value using jq
+          run: |
+            jq '.name' report.json
+        - name: Print tool version
+          run: |
+            echo "version of jq: $(jq --version)"
+            echo "version of python: $(python --version)"
+            echo "git version: $(git --version)"
+        - name: Report Complete
+          run: |
+           echo "Report Complete"
+            
+
+
+
+            

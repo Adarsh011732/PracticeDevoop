@@ -1,0 +1,17 @@
+name: Nightly Housekeeper
+on:
+    workflow_dispatch:
+    schedule:
+        - cron: "0 2 * * *"
+
+jobs:
+  housekeeper:
+    runs-on: ubuntu-latest
+    steps:
+        - name: Print current date and time
+          run: | 
+           echo "Current date and time: $(date +'%Y-%m-%d %H:%M:%S')"
+        - name: Print message
+          run: echo "Running nightly clean "
+        - name: Run Clean up script 
+          run: echo "Housekeeping completed" 

@@ -1,0 +1,12 @@
+name: Workflow Events
+
+on:
+  workflow_dispatch:
+jobs:
+  log-event:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+      - name: Log Trigger Event
+        run: echo "Build triggered by ${{ github.event_name }}"
